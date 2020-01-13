@@ -129,7 +129,6 @@ function bezier(x, y, z, w, g, h, r, q, c, t, c2, c3) {
 
 //this for loop works
 function generate() {
-  let path = [];
   let r1 = 0;
   let r2 = 0;
   let r3 = 0;
@@ -138,7 +137,7 @@ function generate() {
   let r6 = 0;
   let r7 = 0;
   let r8 = 0;
-  for (let i = 0; i <= 80; i++) {
+  for (let i = 0; i <= 100; i++) {
     let x = random1to3();
     if (x === 1) {
       randomArc(
@@ -262,80 +261,5 @@ function generate() {
   context.fillStyle = 'black';
   context.font = '12px arial';
   context.fillText('oleo3', 565, 594);
-  // THIS DOESNT WORK
-  /*
-  let img = $canvas.toDataURL('image/png');
-  // console.log(img);
-  fs.writeFile('newImage.png', img, function(err) {
-    if (err) throw err;
-    console.log('Saved!');
-  });
-*/
+
 }
-
-//make random rect - working
-// randomRectFull(randomXY(), randomXY(), randomXY(), randomXY(), randomColor());
-
-//make random arc - working
-// randomArc(
-//   randomXY(),
-//   randomXY(),
-//   randomRadius(),
-//   randomRadius(),
-//   randomPI(),
-//   randomColor()
-// );
-
-// //make random stroke - working
-// randomStroke(
-//   randomXY(),
-//   randomXY(),
-//   randomXY(),
-//   randomXY(),
-//   randomXY(),
-//   randomXY(),
-//   randomWidth(),
-//   randomColor()
-// );
-
-// for (let i = 0; i <= 100; i++) {
-//   let x = random1to3();
-//   let r1 = 0;
-//   let r2 = 0;
-//   let r3 = 0;
-//   if (x === 1) {
-//     randomArc(
-//       randomXY(),
-//       randomXY(),
-//       randomRadius(),
-//       randomRadius(),
-//       randomPI(),
-//       randomColor()
-//     );
-//     r1++;
-//   } else if (x === 2) {
-//     randomRectFull(
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomColor()
-//     );
-//     r2++;
-//   } else if (x === 3) {
-//     randomStroke(
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomXY(),
-//       randomWidth(),
-//       randomColor()
-//     );
-//     r3++;
-//     console.log(x);
-//   } else {
-//     console.log('random equaled 0');
-//   }
-// }
