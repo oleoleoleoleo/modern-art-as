@@ -256,7 +256,7 @@ function generate() {
     }
   }
   console.log(
-    `Arc ${r1} -  Rect ${r2} - Stroke ${r3} - randomEllipse ${r4} - strokeClosed ${r5} - strokeFilled ${r6} - strokePlus ${r7} - bezier ${r8} `
+    `Arc: ${r1} - Rectangle: ${r2} - Ellipse: ${r4} - Bezier Curve: ${r8} - Stroke: ${r3} - Closed Stroke: ${r5} - Filled Stroke: ${r6} - Stroke Plus: ${r7} `
   );
   context.fillStyle = 'black';
   context.font = '12px arial';
