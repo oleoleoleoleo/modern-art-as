@@ -14,7 +14,7 @@ function randomAngle() {
   return Math.floor(Math.random() * 360);
 }
 function randomColor() {
-  return Math.floor(Math.random() * 280);
+  return Math.floor(Math.random() * 255);
 }
 function randomWidth() {
   return Math.floor(Math.random() * 60);
@@ -29,17 +29,17 @@ function random1to3() {
 context.fillStyle = 'white';
 context.fillRect(10, 10, 500, 500);
 
-function randomArc(x, y, r, a, p, c) {
-  context.fillStyle = colorArray[c];
+function randomArc(x, y, r, a, p, c, c2, c3) {
+  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.arc(x, y, r, a, p, true);
   context.fill();
   context.closePath();
 }
 
-function randomStroke(x, y, z, w, h, u, t, c) {
+function randomStroke(x, y, z, w, h, u, t, c, c2, c3) {
   context.lineWidth = t;
-  context.strokeStyle = colorArray[c];
+  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.moveTo(x, y);
   context.lineTo(z, w);
@@ -48,9 +48,9 @@ function randomStroke(x, y, z, w, h, u, t, c) {
   context.closePath();
 }
 
-function randomStrokePlus(x, y, z, w, h, u, h2, u2, h3, u3, t, c) {
+function randomStrokePlus(x, y, z, w, h, u, h2, u2, h3, u3, t, c, c2, c3) {
   context.lineWidth = t;
-  context.strokeStyle = colorArray[c];
+  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.moveTo(x, y);
   context.lineTo(z, w);
@@ -61,24 +61,24 @@ function randomStrokePlus(x, y, z, w, h, u, h2, u2, h3, u3, t, c) {
   context.closePath();
 }
 
-function randomRectFull(x, y, w, h, c, p) {
+function randomRectFull(x, y, w, h, c, p, c2, c3) {
   context.rotate(p);
-  context.fillStyle = colorArray[c];
+  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.fillRect(x, y, w, h);
   context.rotate(-p);
 }
 
-function randomEllipse(x, y, xr, yr, a, p, p2, c) {
-  context.fillStyle = colorArray[c];
+function randomEllipse(x, y, xr, yr, a, p, p2, c, c2, c3) {
+  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.ellipse(x, y, xr, yr, a, p2, p);
   context.closePath();
   context.fill();
 }
 
-function randomStrokeClosed(x, y, z, w, h, u, t, c) {
+function randomStrokeClosed(x, y, z, w, h, u, t, c, c2, c3) {
   context.lineWidth = t;
-  context.strokeStyle = colorArray[c];
+  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.moveTo(x, y);
   context.lineTo(z, w);
@@ -87,9 +87,9 @@ function randomStrokeClosed(x, y, z, w, h, u, t, c) {
   context.stroke();
 }
 
-function randomStrokeFilled(x, y, z, w, h, u, t, c) {
+function randomStrokeFilled(x, y, z, w, h, u, t, c, c2, c3) {
   context.lineWidth = t;
-  context.strokeStyle = colorArray[c];
+  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.moveTo(x, y);
   context.lineTo(z, w);
@@ -108,26 +108,28 @@ bezier(
   randomXY(),
   randomXY(),
   randomColor(),
-  randomWidth()
+  randomWidth(),
+  randomColor(),
+  randomColor()
 );
-function bezier(x, y, z, w, g, h, r, q, c, t) {
+
+function bezier(x, y, z, w, g, h, r, q, c, t, c2, c3) {
   context.lineWidth = t;
-  context.strokeStyle = colorArray[c];
+  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
   context.beginPath();
   context.moveTo(x + 200, y + 200);
-  context.bezierCurveTo(z, w, g, h, r, q);
-  context.bezierCurveTo(g / 2, q, z, y * 2, t, c);
-  context.bezierCurveTo(y, h, r, q, x / r, h);
-  context.bezierCurveTo(x, t + 100, y, q, g, c);
-  context.bezierCurveTo(r, z, c, h, z - 100, g);
-  context.bezierCurveTo(y, x % c, t, c * 3, r, c);
+  context.bezierCurveTo(z, w, g, h + c, r, q);
+  context.bezierCurveTo(g / c, q - c2, z, y - c * 2, t, c);
+  context.bezierCurveTo(y - x, h, r, q * c3, x, h);
+  context.bezierCurveTo(x - c * 2, t * c, y, q, g + c3, c);
+  context.bezierCurveTo(r * c2, z, c, h, z, g);
+  context.bezierCurveTo(y, x, t, c, r, c);
   context.stroke();
 }
 
-//this doesnt work
-
 //this for loop works
 function generate() {
+  let path = [];
   let r1 = 0;
   let r2 = 0;
   let r3 = 0;
@@ -136,7 +138,7 @@ function generate() {
   let r6 = 0;
   let r7 = 0;
   let r8 = 0;
-  for (let i = 0; i <= 100; i++) {
+  for (let i = 0; i <= 80; i++) {
     let x = random1to3();
     if (x === 1) {
       randomArc(
@@ -145,6 +147,8 @@ function generate() {
         randomRadius(),
         randomRadius(),
         randomPI(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r1++;
@@ -155,7 +159,9 @@ function generate() {
         randomXY(),
         randomXY(),
         randomColor(),
-        randomPI()
+        randomPI(),
+        randomColor(),
+        randomColor()
       );
       r2++;
     } else if (x === 3) {
@@ -167,6 +173,8 @@ function generate() {
         randomXY(),
         randomXY(),
         randomWidth(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r3++;
@@ -179,6 +187,8 @@ function generate() {
         randomAngle(),
         randomPI(),
         randomPI(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r4++;
@@ -191,6 +201,8 @@ function generate() {
         randomXY(),
         randomXY(),
         randomWidth(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r5++;
@@ -203,6 +215,8 @@ function generate() {
         randomXY(),
         randomXY(),
         randomWidth(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r6++;
@@ -219,6 +233,8 @@ function generate() {
         randomXY(),
         randomXY(),
         randomWidth(),
+        randomColor(),
+        randomColor(),
         randomColor()
       );
       r7++;
@@ -233,21 +249,28 @@ function generate() {
         randomXY(),
         randomXY(),
         randomColor(),
-        randomWidth()
+        randomWidth(),
+        randomColor(),
+        randomColor()
       );
       r8++;
     }
   }
   console.log(
-    `Arc ${r1} -  Rect ${r2} - Stroke ${r3} - randomEllipse ${r4} - strokeClosed ${r5} - strokeFilled ${r6} - strokePlus ${r7} - bazier ${r8} `
+    `Arc ${r1} -  Rect ${r2} - Stroke ${r3} - randomEllipse ${r4} - strokeClosed ${r5} - strokeFilled ${r6} - strokePlus ${r7} - bezier ${r8} `
   );
   context.fillStyle = 'black';
-  context.font = '6px arial';
-  context.fillText(
-    'programei sai correndo pau no cu de quem ta lendo',
-    465,
-    594
-  );
+  context.font = '12px arial';
+  context.fillText('oleo3', 565, 594);
+  // THIS DOESNT WORK
+  /*
+  let img = $canvas.toDataURL('image/png');
+  // console.log(img);
+  fs.writeFile('newImage.png', img, function(err) {
+    if (err) throw err;
+    console.log('Saved!');
+  });
+*/
 }
 
 //make random rect - working
