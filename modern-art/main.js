@@ -22,252 +22,158 @@ function randomWidth() {
 function randomRadius() {
   return Math.floor(Math.random() * 200);
 }
-function random1to8() {
-  return Math.ceil(Math.random() * 8);
+function random1to6() {
+  return Math.ceil(Math.random() * 6);
 }
 
-context.fillStyle = "white";
-context.fillRect(10, 10, 500, 500);
+function clear() {
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 800, 800);
+}
 
-function randomArc(x, y, r, a, p, c, c2, c3) {
-  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
+function setRandomColor() {
+  context.fillStyle = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+  context.strokeStyle = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+}
+
+function strokeOrFill() {
+  !!Math.round(Math.random()) ? context.fill() : context.stroke();
+}
+
+function randomArc() {
   context.beginPath();
-  context.arc(x, y, r, a, p, true);
-  context.fill();
+  context.arc(
+    randomXY(),
+    randomXY(),
+    randomRadius(),
+    randomRadius(),
+    randomPI(),
+    !!Math.round(Math.random())
+  );
+  strokeOrFill();
   context.closePath();
 }
 
-function randomStroke(x, y, z, w, h, u, t, c, c2, c3) {
-  context.lineWidth = t;
-  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
+function randomStroke() {
+  context.lineWidth = randomWidth();
   context.beginPath();
-  context.moveTo(x, y);
-  context.lineTo(z, w);
-  context.lineTo(h, u);
-  context.stroke();
+  context.moveTo(randomXY(), randomXY());
+  randomLineTo();
+  strokeOrFill();
   context.closePath();
 }
 
-function randomStrokePlus(x, y, z, w, h, u, h2, u2, h3, u3, t, c, c2, c3) {
-  context.lineWidth = t;
-  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
+function randomRectFull() {
+  const randomPiVar = randomPI();
+  context.rotate(randomPiVar);
+  context.fillRect(randomXY(), randomXY(), randomXY(), randomXY());
+  context.rotate(-randomPiVar);
+}
+
+function randomEllipse() {
   context.beginPath();
-  context.moveTo(x, y);
-  context.lineTo(z, w);
-  context.lineTo(h, u);
-  context.lineTo(h2, u2);
-  context.lineTo(h3, u3);
-  context.stroke();
+  context.ellipse(
+    randomXY(),
+    randomXY(),
+    randomRadius(),
+    randomRadius(),
+    randomAngle(),
+    randomPI(),
+    randomPI()
+  );
   context.closePath();
+  strokeOrFill();
 }
 
-function randomRectFull(x, y, w, h, c, p, c2, c3) {
-  context.rotate(p);
-  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
-  context.fillRect(x, y, w, h);
-  context.rotate(-p);
-}
-
-function randomEllipse(x, y, xr, yr, a, p, p2, c, c2, c3) {
-  context.fillStyle = `rgb(${c}, ${c2}, ${c3})`;
+function randomStrokeClosed() {
+  const initialX = randomXY();
+  const initialY = randomXY();
+  context.lineWidth = randomWidth();
   context.beginPath();
-  context.ellipse(x, y, xr, yr, a, p2, p);
+  context.moveTo(initialX, initialY);
+  randomLineTo();
+  context.lineTo(initialX, initialY);
   context.closePath();
-  context.fill();
-}
-
-function randomStrokeClosed(x, y, z, w, h, u, t, c, c2, c3) {
-  context.lineWidth = t;
-  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
-  context.beginPath();
-  context.moveTo(x, y);
-  context.lineTo(z, w);
-  context.lineTo(h, u);
-  context.closePath();
-  context.stroke();
-}
-
-function randomStrokeFilled(x, y, z, w, h, u, t, c, c2, c3) {
-  context.lineWidth = t;
-  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
-  context.beginPath();
-  context.moveTo(x, y);
-  context.lineTo(z, w);
-  context.lineTo(h, u);
-  context.closePath();
-  context.fill();
-}
-
-bezier(
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomXY(),
-  randomColor(),
-  randomWidth(),
-  randomColor(),
-  randomColor()
-);
-
-function bezier(x, y, z, w, g, h, r, q, c, t, c2, c3) {
-  context.lineWidth = t;
-  context.strokeStyle = `rgb(${c}, ${c2}, ${c3})`;
-  context.beginPath();
-  context.moveTo(x + 200, y + 200);
-  context.bezierCurveTo(z, w, g, h + c, r, q);
-  context.bezierCurveTo(g / c, q - c2, z, y - c * 2, t, c);
-  context.bezierCurveTo(y - x, h, r, q * c3, x, h);
-  context.bezierCurveTo(x - c * 2, t * c, y, q, g + c3, c);
-  context.bezierCurveTo(r * c2, z, c, h, z, g);
-  context.bezierCurveTo(y, x, t, c, r, c);
   context.stroke();
 }
 
-//this for loop works
+function bezier() {
+  context.lineWidth = randomWidth();
+  context.beginPath();
+  context.moveTo(randomXY(), randomXY());
+  randomBezierTo();
+  context.stroke();
+}
+
+function randomBezierTo() {
+  const numberOfMoves = Math.ceil(Math.random() * 15);
+  for (let i = 0; i <= numberOfMoves; i++) {
+    context.bezierCurveTo(
+      randomXY(),
+      randomXY(),
+      randomXY(),
+      randomXY(),
+      randomXY(),
+      randomXY()
+    );
+  }
+}
+
+function randomLineTo() {
+  const numberOfMoves = Math.ceil(Math.random() * 15);
+  for (let i = 0; i <= numberOfMoves; i++) {
+    context.lineTo(randomXY(), randomXY());
+  }
+}
+
 function generate() {
-  let r1 = 0;
-  let r2 = 0;
-  let r3 = 0;
-  let r4 = 0;
-  let r5 = 0;
-  let r6 = 0;
-  let r7 = 0;
-  let r8 = 0;
-  for (let i = 0; i <= 100; i++) {
-    let x = random1to8();
+  clear();
+  let [
+    arcCount,
+    rectCount,
+    strokeCount,
+    ellipseCount,
+    closedStrokeCount,
+    bezierCount,
+  ] = Array(6).fill(0);
+  for (let i = 0; i < 100; i++) {
+    setRandomColor();
+    let x = random1to6();
     switch (x) {
       case 1:
-        randomArc(
-          randomXY(),
-          randomXY(),
-          randomRadius(),
-          randomRadius(),
-          randomPI(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r1++;
+        randomArc();
+        arcCount++;
         break;
       case 2:
-        randomRectFull(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomColor(),
-          randomPI(),
-          randomColor(),
-          randomColor()
-        );
-        r2++;
+        randomRectFull();
+        rectCount++;
         break;
       case 3:
-        randomStroke(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomWidth(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r3++;
+        randomStroke();
+        strokeCount++;
         break;
       case 4:
-        randomEllipse(
-          randomXY(),
-          randomXY(),
-          randomRadius(),
-          randomRadius(),
-          randomAngle(),
-          randomPI(),
-          randomPI(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r4++;
+        randomEllipse();
+        ellipseCount++;
         break;
       case 5:
-        randomStrokeClosed(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomWidth(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r5++;
+        randomStrokeClosed();
+        closedStrokeCount++;
         break;
-      case 6:
-        randomStrokeFilled(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomWidth(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r6++;
-        break;
-      case 7:
-        randomStrokePlus(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomWidth(),
-          randomColor(),
-          randomColor(),
-          randomColor()
-        );
-        r7++;
-        break;
-      case 8:
-        bezier(
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomXY(),
-          randomColor(),
-          randomWidth(),
-          randomColor(),
-          randomColor()
-        );
-        r8++;
+      default:
+        bezier();
+        bezierCount++;
         break;
     }
   }
   console.log(
-    `Arc: ${r1} - Rectangle: ${r2} - Ellipse: ${r4} - Bezier Curve: ${r8} - Stroke: ${r3} - Closed Stroke: ${r5} - Filled Stroke: ${r6} - Stroke Plus: ${r7} `
+    `Arc: ${arcCount} - Rectangle: ${rectCount} - Ellipse: ${ellipseCount} - Bezier Curve: ${bezierCount} - Stroke: ${strokeCount} - Closed Stroke: ${closedStrokeCount} `
   );
   context.fillStyle = "black";
   context.font = "12px arial";
   context.fillText("oleo3", 565, 594);
 }
+
+clear();
+setRandomColor();
+bezier();
