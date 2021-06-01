@@ -1,8 +1,8 @@
-const $canvas = document.querySelector('canvas');
-const $button = document.querySelector('button');
-const context = $canvas.getContext('2d');
+const $canvas = document.querySelector("canvas");
+const $button = document.querySelector("button");
+const context = $canvas.getContext("2d");
 
-$button.addEventListener('click', generate);
+$button.addEventListener("click", generate);
 
 function randomXY() {
   return Math.floor(Math.random() * 700) - 100;
@@ -22,11 +22,11 @@ function randomWidth() {
 function randomRadius() {
   return Math.floor(Math.random() * 200);
 }
-function random1to3() {
+function random1to8() {
   return Math.ceil(Math.random() * 8);
 }
 
-context.fillStyle = 'white';
+context.fillStyle = "white";
 context.fillRect(10, 10, 500, 500);
 
 function randomArc(x, y, r, a, p, c, c2, c3) {
@@ -138,128 +138,136 @@ function generate() {
   let r7 = 0;
   let r8 = 0;
   for (let i = 0; i <= 100; i++) {
-    let x = random1to3();
-    if (x === 1) {
-      randomArc(
-        randomXY(),
-        randomXY(),
-        randomRadius(),
-        randomRadius(),
-        randomPI(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r1++;
-    } else if (x === 2) {
-      randomRectFull(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomColor(),
-        randomPI(),
-        randomColor(),
-        randomColor()
-      );
-      r2++;
-    } else if (x === 3) {
-      randomStroke(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomWidth(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r3++;
-    } else if (x === 4) {
-      randomEllipse(
-        randomXY(),
-        randomXY(),
-        randomRadius(),
-        randomRadius(),
-        randomAngle(),
-        randomPI(),
-        randomPI(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r4++;
-    } else if (x === 5) {
-      randomStrokeClosed(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomWidth(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r5++;
-    } else if (x === 6) {
-      randomStrokeFilled(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomWidth(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r6++;
-    } else if (x === 7) {
-      randomStrokePlus(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomWidth(),
-        randomColor(),
-        randomColor(),
-        randomColor()
-      );
-      r7++;
-    } else if (x === 8) {
-      bezier(
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomXY(),
-        randomColor(),
-        randomWidth(),
-        randomColor(),
-        randomColor()
-      );
-      r8++;
+    let x = random1to8();
+    switch (x) {
+      case 1:
+        randomArc(
+          randomXY(),
+          randomXY(),
+          randomRadius(),
+          randomRadius(),
+          randomPI(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r1++;
+        break;
+      case 2:
+        randomRectFull(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomColor(),
+          randomPI(),
+          randomColor(),
+          randomColor()
+        );
+        r2++;
+        break;
+      case 3:
+        randomStroke(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomWidth(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r3++;
+        break;
+      case 4:
+        randomEllipse(
+          randomXY(),
+          randomXY(),
+          randomRadius(),
+          randomRadius(),
+          randomAngle(),
+          randomPI(),
+          randomPI(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r4++;
+        break;
+      case 5:
+        randomStrokeClosed(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomWidth(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r5++;
+        break;
+      case 6:
+        randomStrokeFilled(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomWidth(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r6++;
+        break;
+      case 7:
+        randomStrokePlus(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomWidth(),
+          randomColor(),
+          randomColor(),
+          randomColor()
+        );
+        r7++;
+        break;
+      case 8:
+        bezier(
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomXY(),
+          randomColor(),
+          randomWidth(),
+          randomColor(),
+          randomColor()
+        );
+        r8++;
+        break;
     }
   }
   console.log(
     `Arc: ${r1} - Rectangle: ${r2} - Ellipse: ${r4} - Bezier Curve: ${r8} - Stroke: ${r3} - Closed Stroke: ${r5} - Filled Stroke: ${r6} - Stroke Plus: ${r7} `
   );
-  context.fillStyle = 'black';
-  context.font = '12px arial';
-  context.fillText('oleo3', 565, 594);
-
+  context.fillStyle = "black";
+  context.font = "12px arial";
+  context.fillText("oleo3", 565, 594);
 }
