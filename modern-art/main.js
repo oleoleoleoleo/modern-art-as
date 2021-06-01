@@ -5,7 +5,7 @@ const context = $canvas.getContext("2d");
 $button.addEventListener("click", generate);
 
 function randomXY() {
-  return Math.floor(Math.random() * 700) - 100;
+  return Math.floor(Math.random() * 700) - 50;
 }
 function randomPI() {
   return parseFloat(Math.random() * 2 * Math.PI);
@@ -22,8 +22,8 @@ function randomWidth() {
 function randomRadius() {
   return Math.floor(Math.random() * 200);
 }
-function random1to6() {
-  return Math.ceil(Math.random() * 6);
+function random1to7() {
+  return Math.ceil(Math.random() * 7);
 }
 
 function clear() {
@@ -136,9 +136,9 @@ function generate() {
     closedStrokeCount,
     bezierCount,
   ] = Array(6).fill(0);
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 101; i++) {
     setRandomColor();
-    let x = random1to6();
+    let x = random1to7();
     switch (x) {
       case 1:
         randomArc();
@@ -163,7 +163,6 @@ function generate() {
       default:
         bezier();
         bezierCount++;
-        break;
     }
   }
   console.log(
