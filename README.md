@@ -2,6 +2,8 @@
 
 ## The Modern Art Artificial Stupidity
 
+[Available here](https://modern-art.netlify.app/)
+
 ### Conception
 
 The modern art artificial stupidity project was built during downtime on the Ironhack Web Development bootcamp.
@@ -17,12 +19,8 @@ The total amount of possible designs is infinity - 3.
 
 ### Author
 
-Leopoldo Mateus Bolzan Calgaro
+Leopoldo Bolzan
 
 ### License
 
 MIT
-
-### Acknowledgments
-
-Many thanks to the colleagues and TA's from IronHack Lisbon squad 174.
