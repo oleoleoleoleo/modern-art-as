@@ -5,45 +5,44 @@ body {
     background-color: black;
     font-family: 'Righteous', cursive;
     box-sizing: border-box;
-}
-
-canvas {
-    background-color: white;
-    width: 500px;
-    height: 500px;
-    border: 30px solid white;
-}
-
-h1 {
-    color: white;
-    font-size: 3rem;
-}
-
-button {
-    background-color: white;
-    border: none;
-    padding-top: 10px;
-    padding-right: 100px;
-    padding-left: 100px;
-    padding-bottom: 15px;
-    box-shadow: none;
-    font-size: 2rem;
-    font-family: 'Righteous', cursive;
-    margin-top: 1rem;
-
-}
-
-
-
-button:active {
-    background-color: red;
-    color: blue;
-}
-
-.whole-thing {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 12px;
+}
+
+.canvas-div {
+    border: 30px solid white;
+    width: 600px;
+    height: 600px;
+
+    #canvas {
+        background-color: white;
+        width: 600px;
+        height: 600px;
+    }
+}
+
+.header-div {
+    color: white;
+    font-size: 2rem;
+}
+
+.button {
+    background-color: white;
+    border: none;
+    padding: 10px 100px;
+    box-shadow: none;
+    font-size: 1.5rem;
+    font-family: 'Righteous', cursive;
+    margin-top: 0.5rem;
+
+}
+
+.button:active {
+    background-color: red;
+    color: blue;
 }
 
 .btn-div {
@@ -52,4 +51,24 @@ button:active {
 
 .canvas-div {
     margin-top: 2.5rem;
+}
+
+@media screen and (max-width: 600px) {
+    .canvas-div {
+        margin: 0;
+        height: 100vh;
+        border: 0;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        #canvas {
+            height: 100%;
+        }
+    }
+
+    .btn-div,
+    .header-div {
+        display: none;
+    }
 }
