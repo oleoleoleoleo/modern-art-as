@@ -3,6 +3,7 @@
 body {
     margin: 0 auto;
     background-color: black;
+    height: 100vh;
     font-family: 'Righteous', cursive;
     box-sizing: border-box;
     display: flex;
