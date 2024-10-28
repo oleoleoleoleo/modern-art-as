@@ -1,9 +1,11 @@
 const $canvas = document.querySelector("canvas");
 const $button = document.querySelector("button");
+const $body = document.querySelector("body");
 const context = $canvas.getContext("2d");
 
 $button.addEventListener("click", generate);
-$canvas.addEventListener('touchstart', handleTouch);
+$canvas.addEventListener('touchend', handleTouch);
+$body.addEventListener('touchmove', preventDefaultTouchMove, { passive: false })
 
 const intervalRefrex = {
   active: false,
@@ -200,6 +202,10 @@ function handleTouch(event) {
   }
 
   lastTapTime = currentTime;
+};
+
+function preventDefaultTouchMove(event) {
+  event.preventDefault();
 };
 
 clear();
